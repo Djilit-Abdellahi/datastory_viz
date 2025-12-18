@@ -1,6 +1,5 @@
 """
 datastory_viz - Bibliothèque de visualisation pour le data storytelling
-Applique automatiquement les best practices du cours DEML 2025/2026
 """
 
 __version__ = "1.0.0"
