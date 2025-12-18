@@ -46,7 +46,7 @@ dsv.styled_bar(
 
 ## 👨‍💻 Auteur
 
-Votre Nom - DEML 2025/2026
+Djilit Abdellahi - DEML 2025/2026
 
 ## 📄 License
 
