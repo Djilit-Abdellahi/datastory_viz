@@ -1,6 +1,5 @@
 """
 Fichier de démonstration de la bibliothèque datastory_viz
-À utiliser pour vos captures d'écran du rendu !
 """
 
 import numpy as np
