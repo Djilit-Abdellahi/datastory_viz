@@ -14,7 +14,7 @@ from .core import (
     styled_histogram,
     styled_boxplot,
 )
-
+from .geo import styled_choropleth
 # Import du style
 from .styles import apply_style, get_color, get_categorical_colors
 
@@ -32,4 +32,5 @@ __all__ = [
     'apply_style',
     'get_color',
     'get_categorical_colors',
+    'styled_choropleth',
 ]
