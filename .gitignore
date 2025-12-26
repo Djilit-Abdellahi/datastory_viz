@@ -20,6 +20,19 @@ wheels/
 .installed.cfg
 *.egg
 
+# Virtual Environment (Mandatory to ignore)
+.venv/
+env/
+venv/
+ENV/
+
+# Generated Visualization Outputs (Ignore to avoid "Git Noise")
+*.html
+demo_output.html
+
+# Data Folders 
+mrshape/
+
 # IDEs
 .vscode/
 .idea/
