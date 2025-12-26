@@ -1,31 +1,46 @@
-import geopandas as gpd
-import datastory_viz as dsv
-from bokeh.plotting import show, output_file
-
-print("=== Test de Storytelling Spatial : Mauritanie ===")
-
-# 1. Chargement des données 
-# On charge le fichier ADM2 (niveau départemental/moughataa)
-# GeoPandas lira automatiquement le .dbf et le .prj associés
-shapefile_path = "mrt_admbnda_adm2_ansade_20240327.shp"
-gdf = gpd.read_file(shapefile_path)
-
-# 2. Simulation de données électorales (Le Récit)
-# En attendant les vrais chiffres, on crée une colonne fictive de participation
+import os
+import sys
 import numpy as np
-gdf['Participation'] = np.random.uniform(40, 95, size=len(gdf))
+import geopandas as gpd
+from bokeh.io import output_file, show
 
-# 3. Création de la carte avec votre bibliothèque
-# On utilise Bokeh pour l'interactivité (Survol/Zoom) demandée
-print("Construction du récit interactif...")
-p = dsv.styled_choropleth(
-    gdf=gdf,
-    value_col="Participation",
-    name_col="ADM2_FR", # Nom de la moughataa dans votre fichier .dbf
-    title="Analyse Spatiale : Participation Électorale en Mauritanie"
-)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# 4. Exportation
-output_file("election_mauritanie_bokeh.html")
-print("\n✅ Succès ! La carte interactive est prête dans 'election_mauritanie_bokeh.html'.")
-show(p)
+from datastory_viz.geo import styled_choropleth
+
+def run_geo_demo():
+    # File path for the specific shapefile
+    shapefile_path = "mrt_admbnda_adm2_ansade_20240327.shp"
+    
+    if not os.path.exists(shapefile_path):
+        print(f"Error: {shapefile_path} not found.")
+        return
+
+    # Load data using geopandas
+    gdf = gpd.read_file(shapefile_path)
+
+    # Generate dummy values for visualization demo
+    # Standard column for region names in this specific file is often 'ADM2_FR'
+    name_col = 'ADM2_FR' 
+    value_col = 'result_value'
+    
+    gdf[value_col] = np.random.uniform(0, 100, size=len(gdf))
+
+    # Configure Bokeh output
+    output_path = "demo_output.html"
+    output_file(output_path, title="Interactive Geo Demo")
+
+    # Call the library function
+    plot = styled_choropleth(
+        gdf=gdf,
+        value_col=value_col,
+        name_col=name_col,
+        title="Interactive Mauritania Administrative Map"
+    )
+
+    # Display result
+    print(f"Opening {output_path}...")
+    show(plot)
+
+if __name__ == "__main__":
+    run_geo_demo()
